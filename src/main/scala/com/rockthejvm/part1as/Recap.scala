@@ -2,7 +2,7 @@ package com.rockthejvm.part1as
 
 import scala.annotation.tailrec
 
-//noinspection TypeAnnotation,ScalaUnusedSymbol
+//noinspection TypeAnnotation,ScalaUnusedSymbol,DuplicatedCode
 object Recap {
 
   // values, types, expressions
@@ -54,7 +54,79 @@ object Recap {
   object LList // companion object, used for instance-independent ("static") fields/methods
 
   // case class
+  case class Person(name: String, age: Int)
 
+  // enums
+  enum BasicColors {
+    case RED, GREEN, BLUE
+  }
+
+  // exceptions and try/catch/finally
+  def throwSomeException(): Int =
+    throw new RuntimeException
+
+  val aPotentialFailure = try {
+    // code that might fail
+    throwSomeException()
+  } catch {
+    case e: Exception => "I caught an exception"
+  } finally {
+    // closing resources
+    println("some important logs")
+  }
+
+  // functional programming
+  val incrementer = new Function[Int, Int] {
+    override def apply(x: Int): Int = x + 1
+  }
+
+  val two = incrementer(1)
+
+  // lambda
+  val anonymousIncrementer = (x: Int) => x + 1
+  // hofs = higher-order functions
+  val anIncrementerList = List(1, 2, 3).map(anonymousIncrementer) // [2,3,4]
+  // map, flatMap, filter
+
+  // for-comprehensions
+  val pairs = for {
+    number <- List(1, 2, 3)
+    char <- List('a', 'b')
+  } yield s"$number-$char"
+
+  // Scala collections: Seqs, Arrays, Lists, Vectors, Maps, Tuples, Sets
+
+  // options, try
+  val anOption: Option[Int] = Option(42)
+
+  // pattern matching
+  val x = 2
+  val order = x match {
+    case 1 => "first"
+    case 2 => "second"
+    case _ => "not important"
+  }
+
+  val bob = Person("Bob", 22)
+  val greeting = bob match {
+    case Person(n, _) => s"Hi, my name is $n"
+  }
+
+  // braceless syntax
+  val pairs_v2 =
+    for
+      number <- List(1, 2, 3)
+      char <- List('a', 'b')
+    yield s"$number-$char"
+    // same for if, match, while, ...
+
+  // indentation tokens
+  class BracelessAnimal:
+    def eat(): Unit =
+      println("I'm doing something")
+      println("I'm eating")
+    end eat
+  end BracelessAnimal
 
   def main(args: Array[String]): Unit = {
 
