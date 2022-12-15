@@ -101,7 +101,7 @@ object AdvancedPatternMatching {
     def get: T
   }
 
-  // 99%, you should probably use options
+  // 99%, You should probably use options. Just use options with unapply.
   object PersonWrapper {
     def unapply(person: Person): Wrapper[String] = new Wrapper[String] {
       override def isEmpty: Boolean = false
